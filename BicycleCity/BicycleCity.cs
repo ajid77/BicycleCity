@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
+// Removed using System.Security.Policy as it's not needed
 using GTA;
 using GTA.Math;
 using GTA.Native;
+// Removed using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace BicycleCity
 {
@@ -55,7 +58,7 @@ namespace BicycleCity
             UpdateFanFacing();
 
             if (cantFallFromBike)
-                Function.Call(Hash.SET_PED_CAN_BE_KNOCKED_OFF_VEHICLE, Game.Player.Character, 1);
+                Function.Call(GTA.Native.Hash.SET_PED_CAN_BE_KNOCKED_OFF_VEHICLE, Game.Player.Character, 1);
         }
 
         private void SpawnBicycles()
@@ -75,7 +78,7 @@ namespace BicycleCity
                     canChange.Add(vehicle);
 
                     if (aggressiveDrivers && vehicle.Driver != null)
-                        Function.Call(Hash.SET_DRIVE_TASK_DRIVING_STYLE, vehicle.Driver, (int)AggressiveDrivingStyle());
+                        Function.Call(GTA.Native.Hash.SET_DRIVE_TASK_DRIVING_STYLE, vehicle.Driver, (int)AggressiveDrivingStyle());
                 }
             }
 
@@ -92,7 +95,7 @@ namespace BicycleCity
 
                 if (driver != null)
                 {
-                    Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, driver, true, true);
+                    Function.Call(GTA.Native.Hash.SET_ENTITY_AS_MISSION_ENTITY, driver, true, true);
                     driver.AlwaysKeepTask = false;
                 }
 
@@ -118,8 +121,8 @@ namespace BicycleCity
                     {
                         driver.SetIntoVehicle(newVehicle, VehicleSeat.Driver);
                         int drivingStyle = cyclistsBreakLaws ? (int)LawBreakerDrivingStyle() : aggressiveCyclists ? (int)AggressiveDrivingStyle() : 0;
-                        Function.Call(Hash.TASK_VEHICLE_DRIVE_WANDER, driver, newVehicle, (float)random.Next(4, 8), drivingStyle);
-                        Function.Call(Hash.SET_PED_KEEP_TASK, driver, true);
+                        Function.Call(GTA.Native.Hash.TASK_VEHICLE_DRIVE_WANDER, driver, newVehicle, (float)random.Next(4, 8), drivingStyle);
+                        Function.Call(GTA.Native.Hash.SET_PED_KEEP_TASK, driver, true);
                         driver.MarkAsNoLongerNeeded();
                     }
 
@@ -257,7 +260,7 @@ namespace BicycleCity
         private bool IsSpecialVehicle(Vehicle vehicle)
         {
             return vehicle.Model.IsTrain || vehicle.Model.IsBoat || vehicle.Model.IsHelicopter || vehicle.Model.IsPlane ||
-                   Function.Call<bool>(Hash.IS_ENTITY_A_MISSION_ENTITY, vehicle);
+                   Function.Call<bool>(GTA.Native.Hash.IS_ENTITY_A_MISSION_ENTITY, vehicle);
         }
     }
 }
