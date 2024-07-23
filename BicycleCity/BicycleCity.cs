@@ -17,7 +17,7 @@ namespace BicycleCity
         private readonly bool cantFallFromBike;
         private int lastTime = Environment.TickCount;
         private readonly List<Ped> fans = new List<Ped>();
-        private readonly string[] availableBicycles = { "BMX", "CRUISER", "FIXTER", "SCORCHER", "TRIBIKE", "TRIBIKE2", "TRIBIKE3" };
+        private readonly string[] availableBicycles = { "CRUISER", "FIXTER", "SCORCHER", "TRIBIKE", "TRIBIKE2", "TRIBIKE3" };
 
         public PedestrianDefinitions.PedestrianModel[] CheeringPeds => PedestrianDefinitions.PedModels;
 
